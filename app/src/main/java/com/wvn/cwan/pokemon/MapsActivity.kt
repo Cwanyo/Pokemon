@@ -35,9 +35,11 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         checkPermission()
         loadPokemon()
 
+        //start autorun after loadPokemon
         var arThread = AutoRunThread()
         arThread.start()
         Log.d(tag, "createMyThread")
+
         //set location to abac
         myLocation!!.latitude = 13.6133
         myLocation!!.longitude = 100.837
@@ -205,7 +207,6 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
                     Thread.sleep(750)
                 } catch (ex:Exception) {
                     Log.e("THREAD-RUN", ex.message)
-
                 }
             }
         }
@@ -238,13 +239,12 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
                     Thread.sleep(500)
                 } catch (ex:Exception) {
                     Log.e("THREAD-RUN", ex.message)
-
                 }
             }
         }
 
         //https://en.wikipedia.org/wiki/Linear_interpolation
-        //v0 = destination, v1 = currlocation, t = % value between 0-1
+        //v0 = currlocation, v1 = destination, t = % value between 0-1
         fun lerp(v0: Double,v1: Double,t: Double): Double {
             return (1 - t) * v0 + t * v1
         }
